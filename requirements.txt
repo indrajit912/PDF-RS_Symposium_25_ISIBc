@@ -1,0 +1,9 @@
+requests
+python-dotenv
+tabulate
+# The followings are required for Google module
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+beautifulsoup4
+lxml
