@@ -104,11 +104,11 @@ def main():
         print("No data available in the sheet.")
         return
 
-    # Print responses for the talk
-    print_responses_for_talk(data=data[1:])
-
     # Summarize responses
     summarize_responses(data=data[1:])
+
+    # Print responses for the talk
+    print_responses_for_talk(data=data[1:])
 
     # Get participants and speakers
     participants, speakers = get_participants_and_speakers(data=data[1:])
