@@ -25,8 +25,41 @@ def print_sheet_data(sheet_data, headers=None):
 
 
 def print_responses_for_talk(data):
+    """
+    Prints responses for the talk in a tabular format.
+
+    :param data: List of lists representing the rows of the sheet.
+    """
     headers = ['Timestamp', 'Name', 'Email', 'Affiliation', 'Wanna talk?', 'Wanna attend?']
     print_sheet_data(sheet_data=data, headers=headers)
+
+
+def get_participants_and_speakers(data):
+    """
+    Extracts participants and speakers from the Google Sheet data.
+
+    :param data: List of lists representing the rows of the sheet (excluding headers).
+    :return: Tuple containing two lists:
+             - participants: List of [timestamp, name, email, affiliation] for attendees.
+             - speakers: List of [timestamp, name, email, affiliation] for those who want to give a talk.
+    """
+    participants = []
+    speakers = []
+
+    for row in data:
+        timestamp = row[0].strip()
+        name = row[1].strip()
+        email = row[2].strip()
+        affiliation = row[3].strip()
+        wanna_talk = row[4].strip().lower() == "yes"
+        wanna_attend = row[5].strip().lower() == "yes"
+
+        if wanna_attend:
+            participants.append([timestamp, name, email, affiliation])
+        if wanna_talk:
+            speakers.append([timestamp, name, email, affiliation])
+
+    return participants, speakers
 
 
 def summarize_responses(data):
@@ -41,14 +74,14 @@ def summarize_responses(data):
     talk_postdoc = 0
 
     for row in data:
-        affiliation = row[3].strip()
+        affiliation = row[3].strip().lower()
         wanna_talk = row[4].strip().lower() == "yes"
 
-        if affiliation.lower() == "phd":
+        if affiliation == "phd":
             total_phd += 1
             if wanna_talk:
                 talk_phd += 1
-        elif affiliation.lower() == "post doc":
+        elif affiliation == "post doc":
             total_postdoc += 1
             if wanna_talk:
                 talk_postdoc += 1
@@ -61,17 +94,28 @@ def summarize_responses(data):
 
 
 def main():
-    # Creating googleSheet
+    # Fetching data from Google Sheets
     client = GoogleSheetClient()
     spreadsheet = GoogleSheet(client=client, spreadsheet_id=SYMPOSIUM_SHEET_ID)
     ws = spreadsheet.get_worksheet(0)
     data = ws.get()
 
+    if not data or len(data) < 2:
+        print("No data available in the sheet.")
+        return
+
+    # Print responses for the talk
     print_responses_for_talk(data=data[1:])
 
     # Summarize responses
     summarize_responses(data=data[1:])
-    
+
+    # Get participants and speakers
+    participants, speakers = get_participants_and_speakers(data=data[1:])
+    print(f"\nParticipants: {len(participants)}")
+    print_sheet_data(sheet_data=participants, headers=["Timestamp", "Name", "Email", "Affiliation"])
+    print(f"\nSpeakers: {len(speakers)}")
+    print_sheet_data(sheet_data=speakers, headers=["Timestamp", "Name", "Email", "Affiliation"])
 
 
 if __name__ == '__main__':
