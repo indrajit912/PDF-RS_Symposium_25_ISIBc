@@ -9,6 +9,7 @@ from Google import *
 from tabulate import tabulate
 
 SYMPOSIUM_SHEET_ID = "1oWc3pIBOhDinA3qak3Hqt8YxkubCc17sIIsZuqeUEPM"
+SPEAKER_INFO_SHEET_ID = "1Nh6gFkamgS06SFGWfhMWhUmc1CgPZLVFYKbtPBSsrck"
 
 
 def print_sheet_data(sheet_data, headers=None):
@@ -93,7 +94,7 @@ def summarize_responses(data):
     print(f"Wanna Talk: ({talk_phd} PhD, {talk_postdoc} PostDoc) = {total_speakers}")
 
 
-def main():
+def all_data():
     # Fetching data from Google Sheets
     client = GoogleSheetClient()
     spreadsheet = GoogleSheet(client=client, spreadsheet_id=SYMPOSIUM_SHEET_ID)
@@ -116,6 +117,43 @@ def main():
     print_sheet_data(sheet_data=participants, headers=["Timestamp", "Name", "Email", "Affiliation"])
     print(f"\nSpeakers: {len(speakers)}")
     print_sheet_data(sheet_data=speakers, headers=["Timestamp", "Name", "Email", "Affiliation"])
+
+from tabulate import tabulate
+
+def speaker_info():
+    """
+    Fetches and prints the speaker information from the Google Sheet in a two-column format using tabulate.
+    """
+    # Initialize Google Sheet Client
+    speaker_client = GoogleSheetClient()
+    sh = GoogleSheet(client=speaker_client, spreadsheet_id=SPEAKER_INFO_SHEET_ID)
+    worksheet = sh.get_worksheet(0)
+    speaker_data = worksheet.get()
+
+    if not speaker_data or len(speaker_data) < 2:
+        print("No speaker information available in the sheet.")
+        return
+
+    # Extract headers and data
+    headers = speaker_data[0]
+    data = speaker_data[1:]
+
+    print("\n================= Speaker Information =================\n")
+    
+    # Format data into two columns: header and corresponding value
+    formatted_data = []
+    for row in data:
+        speaker_info = list(zip(headers, row))
+        formatted_data.append(speaker_info)
+
+    # Use tabulate to display data in a neat table format (2 columns)
+    for idx, speaker in enumerate(formatted_data, start=1):
+        print(f"\nSpeaker {idx}:")
+        print(tabulate(speaker, tablefmt="fancy_grid", stralign="left"))
+
+
+def main():
+    speaker_info()
 
 
 if __name__ == '__main__':
