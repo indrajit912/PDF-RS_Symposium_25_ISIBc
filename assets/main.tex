@@ -6,6 +6,12 @@
 
 \documentclass[a4paper,12pt]{article}
 
+\usepackage{titlesec}
+
+\newcommand*{\justifyheading}{\raggedleft}
+\titleformat{\section}
+  {\normalfont\Huge\bfseries\justifyheading}{\thesection}{1em}{}
+
 \input{preamble}
 
 % Enhanced Title Page Design
@@ -39,6 +45,6 @@
 	\newpage
 	
 	\section*{Titles and Abstracts}
-	\input{abstracts/sample}
+	\input{abstracts/suparna_biswas_abstract}
 	
 \end{document}

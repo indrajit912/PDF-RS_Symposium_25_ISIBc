@@ -118,7 +118,6 @@ def all_data():
     print(f"\nSpeakers: {len(speakers)}")
     print_sheet_data(sheet_data=speakers, headers=["Timestamp", "Name", "Email", "Affiliation"])
 
-from tabulate import tabulate
 
 def speaker_info():
     """
@@ -153,7 +152,25 @@ def speaker_info():
 
 
 def main():
-    speaker_info()
+    """
+    Main function to prompt the user for input and call the appropriate function
+    based on the user's choice (either all_user or speaker_info).
+    """
+    print("Welcome to the Symposium Information System!")
+    print("Please choose an option:")
+    print("1. Display all participants and speakers.")
+    print("2. Display speaker information.")
+    
+    # Asking the user for input
+    user_choice = input("Enter 1 or 2: ").strip()
+
+    # Call the appropriate function based on user choice
+    if user_choice == '1':
+        all_data()
+    elif user_choice == '2':
+        speaker_info()
+    else:
+        print("Invalid choice. Please enter 1 or 2.")
 
 
 if __name__ == '__main__':
