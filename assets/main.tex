@@ -19,6 +19,10 @@
 \author{} % Empty author to suppress the warning
 \date{\vspace{-1cm}\Large\textit{January 29--31, 2025}}
 
+% Bibliography
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{references.bib}
+
 \begin{document}
 	
 	% Title Page
@@ -47,14 +51,26 @@
 	\section*{Titles and Abstracts}
 
     \input{abstracts/indrajit_abstract}
+    \input{abstracts/soma_abs}
     \input{abstracts/sneha_b_abstract}
 
+
     \input{abstracts/samir_panja_abstract}
-    \input{abstracts/jaydeep_abs}
 	\input{abstracts/suparna_biswas_abstract}
     
+
+    \input{abstracts/jaydeep_abs}
+    \input{abstracts/piyasa_abs}
     \input{abstracts/sudip_da}
 
     \section*{Thanks Notes}
     \input{thanks}
+    
+    \newpage
+    
+    % \nocite{*} 
+    % Render bibliography
+    \printbibliography
+    
 \end{document}
+
