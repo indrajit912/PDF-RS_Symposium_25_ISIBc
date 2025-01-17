@@ -2,11 +2,13 @@
 % This is the main.tex file for PDF-RS Symposium ISI Bangalore
 % Author: Indrajit Ghosh
 % Created On: Dec 19, 2024
+% Modified On: Jan 17, 2025
 %
 
 \documentclass[a4paper,12pt]{article}
 
 \usepackage{titlesec}
+\usepackage{hyperref}
 
 \newcommand*{\justifyheading}{\raggedleft}
 \titleformat{\section}
@@ -35,10 +37,11 @@
 		
 		{\Huge\textbf{Venue: Platinum Jubilee Auditorium}} \\[0.4cm]
 		{\Large Theoretical Statistics and Mathematics Unit} \\[0.3cm]
-		{\large \textit{Indian Statistical Institute, Bangalore}} \\[2cm]
+		{\large \textit{Indian Statistical Institute, Bangalore}} \\[1.5cm]
 		
 		\rule{\textwidth}{0.5pt} \\[0.6cm]
 		{\Large\textit{Organized by the Research Scholars}} \\[0.6cm]
+        {\large \textit{Visit the symposium webpage: } \href{https://indrajitghosh.onrender.com/misc/isi\_symposium\_25}{\small{\texttt{https://indrajitghosh.onrender.com/misc/isi\_symposium\_25}}}} \\[0.6cm]
 		\rule{\textwidth}{0.5pt}
 	\end{center}
 	
@@ -49,25 +52,20 @@
 	\newpage
 	
 	\section*{Titles and Abstracts}
-
-    \input{abstracts/indrajit_abstract}
+	\input{abstracts/indrajit_abstract}
     \input{abstracts/soma_abs}
     \input{abstracts/bhishek_abs}
     \input{abstracts/sneha_b_abstract}
-
-
     \input{abstracts/priyanka_abs}
     \input{abstracts/samir_panja_abstract}
     \input{abstracts/biswa_abs}
 	\input{abstracts/suparna_biswas_abstract}
-    
-
     \input{abstracts/renu_abs}
     \input{abstracts/jaydeep_abs}
     \input{abstracts/subhajit_abs}
     \input{abstracts/piyasa_abs}
     \input{abstracts/sudip_da}
-
+    
     \section*{Acknowledgements}
     \input{thanks}
     
