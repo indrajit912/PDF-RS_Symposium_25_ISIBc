@@ -1,6 +1,8 @@
 Google/credentials.json
 Google/token.json
 # Byte-compiled / optimized / DLL files
+*.bcf
+*.run.xml
 __pycache__/
 *.py[cod]
 *$py.class
